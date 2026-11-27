@@ -18,6 +18,10 @@ pub fn hash_password(password: &str) -> Result<String, ApiError> {
 }
 
 pub fn verify_password(password: &str, stored_password: &str) -> bool {
+    if stored_password.starts_with("$2") {
+        return bcrypt::verify(password, stored_password).unwrap_or(false);
+    }
+
     let Some((salt, expected_key)) = stored_password.split_once(':') else {
         return false;
     };
@@ -61,5 +65,13 @@ mod tests {
     fn rejects_malformed_stored_password() {
         assert!(!verify_password("password", "malformed"));
         assert!(!verify_password("password", "salt:not-hex"));
+    }
+
+    #[test]
+    fn verifies_legacy_bcrypt_password() {
+        let hashed_password = bcrypt::hash("legacyPassword123", 4).expect("password should hash");
+
+        assert!(verify_password("legacyPassword123", &hashed_password));
+        assert!(!verify_password("wrongPassword", &hashed_password));
     }
 }
