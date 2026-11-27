@@ -1,4 +1,4 @@
-﻿const API_BASE = 'http://localhost:3001/api';
+﻿import { API_BASE } from './config';
 
 export async function authorize(username: string, password: string): Promise<string> {
   const response = await fetch(`${API_BASE}/auth/authorize`, {

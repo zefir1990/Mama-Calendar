@@ -25,7 +25,7 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true,
-      "baseUrl": "/"
+      "baseUrl": "/Mama-Calendar"
     }
   }
 }

@@ -26,6 +26,7 @@ The server loads `.env` automatically.
 
 | Variable | Default | Description |
 | --- | --- | --- |
+| `HOST` | `0.0.0.0` | HTTP bind address |
 | `PORT` | `3001` | HTTP port |
 | `DATABASE_PATH` | `data/mama-calendar.redb` | Path to the redb database file |
 | `USERS_MASTER_TOKEN` | Required | Master token for the users and auth-token management routes |

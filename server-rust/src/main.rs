@@ -45,9 +45,9 @@ async fn run() -> Result<(), Box<dyn Error>> {
         config.clear_database_master_token,
     );
     let router = routes::build(state);
-    let listener = TcpListener::bind(("0.0.0.0", config.port)).await?;
+    let listener = TcpListener::bind((config.host.as_str(), config.port)).await?;
 
-    tracing::info!("Server running on http://localhost:{}", config.port);
+    tracing::info!("Server running on http://{}:{}", config.host, config.port);
 
     axum::serve(listener, router)
         .with_graceful_shutdown(shutdown_signal())

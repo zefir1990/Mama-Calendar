@@ -1,7 +1,6 @@
 ﻿import { getToken } from './token';
+import { API_BASE } from './config';
 import { Event } from '@/types/event';
-
-const API_BASE = 'http://localhost:3001/api';
 
 export class AuthError extends Error {
   constructor() {

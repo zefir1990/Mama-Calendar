@@ -1,10 +1,12 @@
 use std::env;
 use std::io::{Error, ErrorKind};
 
+const DEFAULT_HOST: &str = "0.0.0.0";
 const DEFAULT_PORT: u16 = 3001;
 const DEFAULT_DATABASE_PATH: &str = "data/mama-calendar.redb";
 
 pub struct Config {
+    pub host: String,
     pub port: u16,
     pub database_path: String,
     pub users_master_token: String,
@@ -14,6 +16,7 @@ pub struct Config {
 impl Config {
     pub fn from_environment() -> Result<Self, Error> {
         Ok(Self {
+            host: load_optional_variable("HOST", DEFAULT_HOST),
             port: load_port()?,
             database_path: load_optional_variable("DATABASE_PATH", DEFAULT_DATABASE_PATH),
             users_master_token: load_required_variable("USERS_MASTER_TOKEN")?,
